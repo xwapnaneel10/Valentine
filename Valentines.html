@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Jamima ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(135deg, #ff758c, #ff7eb3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: url('data:image/svg+xml;utf8,\
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32">\
+        <text y="24" font-size="20">💖</text></svg>') 16 16, auto;
+    }
+
+    .page {
+        display: none;
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 360px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .page.active {
+        display: block;
+    }
+
+    h1 {
+        color: #ff4d6d;
+    }
+
+    p {
+        font-size: 18px;
+        color: #333;
+    }
+
+    input {
+        padding: 8px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn {
+        background: #ff4d6d;
+        color: white;
+    }
+
+    .yes {
+        background: #ff4d6d;
+        color: white;
+        box-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+        animation: glow 1.8s infinite alternate;
+    }
+
+    .no {
+        background: #ddd;
+        margin-top: 10px;
+    }
+
+    @keyframes glow {
+        from {
+            box-shadow: 0 0 8px rgba(255, 77, 109, 0.4);
+        }
+        to {
+            box-shadow: 0 0 16px rgba(255, 77, 109, 0.9);
+        }
+    }
+
+    @keyframes floatUp {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-120vh);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .page {
+            width: 90%;
+            padding: 25px;
+        }
+        h1 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 16px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <h1>Hey You ❤️</h1>
+    <p>
+        Cute little riddle for you 🧩<br><br>
+        <strong>
+            I’m not a phone, but I make you smile.<br>
+            I’m not magic, but I feel special.<br>
+            What am I?
+        </strong>
+    </p>
+
+    <input type="text" id="riddle" placeholder="Your answer">
+
+    <p style="font-size:14px; color:#888; margin-top:8px;">
+        Hint: it’s the name of the person I love the most 💗
+    </p>
+
+    <button class="btn" onclick="checkRiddle()">Submit</button>
+    <p id="riddleMsg"></p>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <h1>Just Curious 💕</h1>
+    <p>
+        Do you know how special you are?<br><br>
+        Because somehow,<br>
+        you make everything feel lighter ✨
+    </p>
+    <button class="btn" onclick="nextPage(3)">Tell me more 🥰</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <h1>One Last Question 💖</h1>
+    <p>
+        I’ve been meaning to ask you something special…
+        <br><br>
+        <strong>Will you be my Valentine? 💝</strong>
+    </p>
+
+    <button class="yes" onclick="yesClicked()">Yes 💕</button>
+    <button class="no" onclick="noClicked()">No 🙈</button>
+
+    <p id="response"></p>
+</div>
+
+<script>
+function nextPage(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page" + page).classList.add("active");
+}
+
+function checkRiddle() {
+    const answer = document.getElementById("riddle").value.trim().toLowerCase();
+    const msg = document.getElementById("riddleMsg");
+
+    if (answer === "jamima") {
+        msg.style.color = "green";
+        msg.innerHTML = "Always 🥰";
+        setTimeout(() => nextPage(2), 1500);
+    } else {
+        msg.style.color = "#ff4d6d";
+        msg.innerHTML = "Close… but my heart knows better 💕";
+    }
+}
+
+function noClicked() {
+    const response = document.getElementById("response");
+    response.style.color = "#ff4d6d";
+    response.innerHTML =
+        "I’m sorry to disappoint, sweetheart 🥺💗<br>" +
+        "but I couldn’t understand what you said…<br>" +
+        "maybe try clicking <strong>YES</strong> again? 😌✨";
+}
+
+function yesClicked() {
+    document.getElementById("page3").innerHTML = `
+        <h1>You Said Yes 💘</h1>
+        <p id="typeText" style="font-size:20px;"></p>
+    `;
+
+    typeWriter(
+        "Thank you for choosing me, Jamima 💖\n\n" +
+        "I promise to care for you,\n" +
+        "laugh with you,\n" +
+        "and love you a little more every day 🌸\n\n" +
+        "Happy Valentine’s Day ❤️"
+    );
+
+    for (let i = 0; i < 24; i++) {
+        createHeart();
+    }
+}
+
+function typeWriter(text) {
+    const el = document.getElementById("typeText");
+    let i = 0;
+    el.innerHTML = "";
+    const timer = setInterval(() => {
+        if (i < text.length) {
+            el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+            i++;
+        } else {
+            clearInterval(timer);
+        }
+    }, 40);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.bottom = "-20px";
+    heart.style.fontSize = Math.random() * 20 + 20 + "px";
+    heart.style.animation = "floatUp 4s linear";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+}
+</script>
+
+</body>
+</html>
